@@ -1,0 +1,40 @@
+﻿#checkout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
+
+h2 {
+  text-align: center;
+}
+
+label,
+input {
+  font-size: x-large;
+}
+
+label {
+  justify-self: end;
+}
+
+button {
+  grid-column: 2;
+  width: 50%;
+  justify-self: center;
+  font-size: xx-large;
+}
+
+form {
+  padding: 5rem;
+  gap: 2rem;
+}
+
+ol {
+  list-style: decimal-leading-zero;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+}

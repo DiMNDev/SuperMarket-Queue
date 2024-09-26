@@ -1,0 +1,58 @@
+﻿@using CustomerQue
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr 1fr;">
+    <div>
+    <form @onsubmit="()=>HandleCheckout()" style="display: grid; grid-template-columns: 1fr 3fr;">
+        <label for="CustomerName">Name</label>
+        <input id="CustomerName" type="text" @bind="customerName">
+        <label for="CustomerItems">Items</label>
+        <input id="CustomerItems" type="numbers" @bind="customerItems">
+        <button>Checkout</button>
+    </form>
+    </div>
+    <div id="checkout">
+        <h2>Express Checkout</h2>
+        <ol>
+        @foreach(var customer in CustomerQueue.ExpressCheckoutLine) {
+        <li>
+            <div>@customer.Name</div>
+            <div>@customer.ItemCount</div>
+        </li>
+
+        }
+        </ol>
+    </div>
+    <div id="checkout">
+        <h2>Standard Checkout</h2>
+        <ol>
+        @foreach(var customer in CustomerQueue.CheckoutLine) {
+        <li>
+            <div>@customer.Name</div>
+            <div>@customer.ItemCount</div>
+        </li>
+        }
+        </ol>
+    </div>
+</div>
+
+@code {
+    // See https://aka.ms/new-console-template for more information
+CustomQueue CustomerQueue = new CustomQueue();
+string customerName = "sally";
+int customerItems = 1;
+
+  protected override void OnInitialized()
+    {
+        CustomerQueue.UpdateDOM = UpdateState;
+    }
+void HandleCheckout() {
+    CustomerQueue.Enqueue(customerName, customerItems, CustomerQueue);
+} 
+
+ public async void UpdateState() {
+    await InvokeAsync(StateHasChanged);
+}
+}
